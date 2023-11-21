@@ -26,7 +26,7 @@ public class ExtendedRomanianAnalyzer extends Analyzer {
         return pattern.matcher(normalized).replaceAll("");
     }
 
-    public static CharArraySet stripDiacritics(CharArraySet originalSet) {
+    public static CharArraySet stripDiacriticsFromCharArraySet(CharArraySet originalSet) {
         CharArraySet strippedSet = new CharArraySet(originalSet.size(), true);
         for (Object entry : originalSet) {
             if (entry instanceof char[]) {
@@ -42,7 +42,7 @@ public class ExtendedRomanianAnalyzer extends Analyzer {
     // Constructor
     public ExtendedRomanianAnalyzer(CharArraySet stopwords, CharArraySet stemExclusionSet) {
 
-        CharArraySet strippedStopWords = stripDiacritics(stopwords);
+        CharArraySet strippedStopWords = stripDiacriticsFromCharArraySet(stopwords);
 
         // Combine original and stripped stopwords
         this.stopwords = new CharArraySet(stopwords.size() + strippedStopWords.size(), true);
