@@ -1,21 +1,9 @@
 package org.example;
 
-import org.apache.lucene.analysis.CharArraySet;
-import org.apache.lucene.analysis.ro.RomanianAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
+
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.FSDirectory;
-
-
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -41,22 +29,26 @@ public class Main {
             pathToIndex = input;
         }
 
-        // Index documents...
+        // Index documents
         try (Indexer indexer = new Indexer(pathToIndex)) {
             indexer.indexDocuments(pathToDocuments);
         } catch (IOException e) {
             System.out.println("Indexing failed: " + e.getMessage());
         }
-
-        // Prompt the user for a search query
-        System.out.print("Enter search query: ");
-        String query = scanner.nextLine();
-        try (Searcher searcher = new Searcher()) {
-            searcher.search(pathToIndex, query);
-        } catch (Exception e) {
-            System.out.println("Searching failed: " + e.getMessage());
+        while (true){
+            // Prompt the user for a search query
+            System.out.print("Enter search query or 0 if you'd like to stop querying: ");
+            String query = scanner.nextLine();
+            if(Objects.equals(query, String.valueOf('0'))){
+                scanner.close();
+                break;
+            }
+            try (Searcher searcher = new Searcher()) {
+                searcher.search(pathToIndex, query);
+            } catch (Exception e) {
+                System.out.println("Searching failed: " + e.getMessage());
+            }
         }
-        scanner.close();
 
     }
 }

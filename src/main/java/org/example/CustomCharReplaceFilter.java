@@ -16,7 +16,7 @@ public class CustomCharReplaceFilter extends TokenFilter {
     public final boolean incrementToken() throws IOException {
         if (input.incrementToken()) {
             String term = new String(termAtt.buffer(), 0, termAtt.length());
-            term = term.replace('ș', 'ş') // Replace as per your requirements
+            term = term.replace('ș', 'ş')
                     .replace('ț', 'ţ');
             termAtt.setEmpty().append(term);
             return true;

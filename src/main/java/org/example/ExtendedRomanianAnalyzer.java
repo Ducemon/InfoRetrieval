@@ -61,7 +61,7 @@ public class ExtendedRomanianAnalyzer extends Analyzer {
         if (!stemExclusionSet.isEmpty()) {
             result = new SetKeywordMarkerFilter(result, stemExclusionSet);
         }
-        result = new ICUFoldingFilter(result); // Add ICU folding filter
+        result = new ICUFoldingFilter(result);
         result = new SnowballFilter(result, new RomanianStemmer());
         return new TokenStreamComponents(source, result);
     }

@@ -64,21 +64,19 @@ public class Indexer implements AutoCloseable{
 
 
     public static void main(String[] args) {
-        // Example usage
 
-        CharArraySet stopWords = RomanianAnalyzer.getDefaultStopSet();
-        System.out.println("Stopwords used by RomanianAnalyzer:");
-        for (Object stopWord : stopWords) {
-            System.out.println(new String((char[]) stopWord));
-        }
+        //used this to check the stopword list
+//        CharArraySet stopWords = RomanianAnalyzer.getDefaultStopSet();
+//        System.out.println("Stopwords used by RomanianAnalyzer:");
+//        for (Object stopWord : stopWords) {
+//            System.out.println(new String((char[]) stopWord));
+//        }
         try {
             final String pathToDocuments = "docomente";
             final String pathToIndex = "IndexusInversus";
-            // Index documents...
             Indexer indexer = new Indexer(pathToIndex);
             indexer.indexDocuments(pathToDocuments);
             indexer.close();
-            // Close the indexer
             indexer.close();
 
         } catch (IOException e) {
