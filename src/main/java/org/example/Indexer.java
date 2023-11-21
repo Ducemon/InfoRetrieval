@@ -47,19 +47,19 @@ public class Indexer implements AutoCloseable{
     }
 
     private void indexFile(Path file) throws IOException {
-        String filePath = file.toString();
-        System.out.println("Processing file: " + filePath); // Debugging line
+        String fileName = file.getFileName().toString();
+        System.out.println("Processing file: " + fileName); // Debugging line
 
         String fileContent = parseFileUsingTika(file);
 
 
 
         Document doc = new Document();
-        doc.add(new StringField("path", filePath, Field.Store.YES));
+        doc.add(new StringField("name", fileName, Field.Store.YES));
         doc.add(new TextField("contents", fileContent, Field.Store.NO));
 
 
-        writer.updateDocument(new Term("path", filePath), doc);
+        writer.updateDocument(new Term("name", fileName), doc);
     }
 
 
@@ -77,7 +77,7 @@ public class Indexer implements AutoCloseable{
             Indexer indexer = new Indexer(pathToIndex);
             indexer.indexDocuments(pathToDocuments);
             indexer.close();
-            indexer.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -56,13 +56,13 @@ public class ExtendedRomanianAnalyzer extends Analyzer {
     protected TokenStreamComponents createComponents(String fieldName) {
         Tokenizer source = new StandardTokenizer();
         TokenStream result = new LowerCaseFilter(source);
-        result = new CustomCharReplaceFilter(result); // Add custom filter
+        result = new CustomCharReplaceFilter(result); // for stopwords
         result = new StopFilter(result, stopwords);
         if (!stemExclusionSet.isEmpty()) {
             result = new SetKeywordMarkerFilter(result, stemExclusionSet);
         }
-        result = new ICUFoldingFilter(result);
         result = new SnowballFilter(result, new RomanianStemmer());
+        result = new ICUFoldingFilter(result);
         return new TokenStreamComponents(source, result);
     }
 }

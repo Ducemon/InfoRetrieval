@@ -34,7 +34,7 @@ public class Searcher implements AutoCloseable{
             for (int i = 0; i < hits.length; i++) {
                 int docId = hits[i].doc;
                 Document d = searcher.doc(docId);
-                System.out.println((i + 1) + ". " + d.get("path"));
+                System.out.println((i + 1) + ". " + d.get("name"));
             }
 
         }
